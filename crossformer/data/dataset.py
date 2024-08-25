@@ -13,12 +13,12 @@ from crossformer.data.utils import goal_relabeling, task_augmentation
 from crossformer.data.utils.data_utils import (
     allocate_threads,
     get_dataset_statistics,
-    NormalizationType,
     normalize_action_and_proprio,
     pprint_data_mixture,
     sample_match_keys_uniform,
     tree_map,
 )
+from crossformer.data.utils.normalization_type import NormalizationType
 from crossformer.utils.spec import ModuleSpec
 
 
