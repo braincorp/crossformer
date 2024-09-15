@@ -7,7 +7,7 @@ from crossformer.data.oxe.oxe_dataset_mixes import OXE_NAMED_MIXES
 from crossformer.data.oxe.oxe_standardization_transforms import (
     OXE_STANDARDIZATION_TRANSFORMS,
 )
-from crossformer.data.utils.normalization_type import NormalizationType
+from crossformer.data.utils.data_utils import NormalizationType
 from crossformer.utils.spec import ModuleSpec
 
 

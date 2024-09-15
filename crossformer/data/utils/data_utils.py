@@ -2,6 +2,7 @@ import hashlib
 import json
 import logging
 import os
+from enum import Enum
 from fnmatch import fnmatch
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
@@ -9,8 +10,6 @@ import dlimp as dl
 import numpy as np
 import tensorflow as tf
 import tqdm
-
-from crossformer.data.utils.normalization_type import NormalizationType
 
 
 def fnmatch_filter(template, xs):
@@ -34,6 +33,13 @@ def tree_merge(*trees: dict) -> dict:
             else:
                 merged[k] = v
     return merged
+
+
+class NormalizationType(str, Enum):
+    """Defines supported normalization schemes for action and proprio."""
+
+    NORMAL = "normal"  # normalize to mean 0, std 1
+    BOUNDS = "bounds"  # normalize to [-1, 1]
 
 
 def to_padding(tensor: tf.Tensor) -> tf.Tensor:

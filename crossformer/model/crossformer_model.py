@@ -14,7 +14,7 @@ import numpy as np
 import orbax.checkpoint
 import tensorflow as tf
 
-from crossformer.data.utils.normalization_type import NormalizationType
+from crossformer.data.utils.data_utils import NormalizationType
 from crossformer.data.utils.text_processing import TextProcessor
 from crossformer.model.components.action_heads import ActionHead
 from crossformer.model.crossformer_module import CrossFormerModule
