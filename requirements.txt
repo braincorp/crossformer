@@ -5,9 +5,9 @@ chex >= 0.1.85
 optax >= 0.1.5
 tensorflow_probability == 0.23.0
 tensorflow == 2.17.0
-jax == 0.4.31  # 20
+jax == 0.4.31  # After install, run pip install --upgrade "jax[cuda12_pip]==0.4.31" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 distrax == 0.1.5
-flax == 0.9.0  # 0.7.5
+flax == 0.9.0
 ml_collections @ git+https://github.com/google/ml_collections@2699256fe8eebbd25b7a78871309b54d5b831452
 tqdm >= 4.60.0
 absl-py >= 0.12.0
