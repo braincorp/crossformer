@@ -409,3 +409,52 @@ def filter_success_droid(trajectory: dict[str, any]):
     return tf.strings.regex_full_match(
         trajectory["traj_metadata"]["episode_metadata"]["file_path"][0], ".*/success/.*"
     )
+
+
+def quaternion_to_euler(
+    quaternion: tf.Tensor,
+    name: str = "rotation_matrix_3d_from_quaternion"
+) -> tf.Tensor:
+  """
+  Convert a quaternion to a rotation matrix. Copied from tensorflow_graphics to remove dependency.
+  See:
+    https://github.com/tensorflow/graphics/blob/master/tensorflow_graphics/geometry/transformation/rotation_matrix_3d.py#L258
+
+  Note:
+    In the following, A1 to An are optional batch dimensions.
+
+  Args:
+    quaternion: A tensor of shape `[A1, ..., An, 4]`, where the last dimension
+      represents a normalized quaternion.
+    name: A name for this op that defaults to
+      "rotation_matrix_3d_from_quaternion".
+
+  Returns:
+    A tensor of shape `[A1, ..., An, 3, 3]`, where the last two dimensions
+    represent a 3d rotation matrix.
+
+  Raises:
+    ValueError: If the shape of `quaternion` is not supported.
+  """
+  with tf.name_scope(name):
+    quaternion = tf.convert_to_tensor(value=quaternion)
+
+    x, y, z, w = tf.unstack(quaternion, axis=-1)
+    tx = 2.0 * x
+    ty = 2.0 * y
+    tz = 2.0 * z
+    twx = tx * w
+    twy = ty * w
+    twz = tz * w
+    txx = tx * x
+    txy = ty * x
+    txz = tz * x
+    tyy = ty * y
+    tyz = tz * y
+    tzz = tz * z
+    matrix = tf.stack((1.0 - (tyy + tzz), txy - twz, txz + twy,
+                       txy + twz, 1.0 - (txx + tzz), tyz - twx,
+                       txz - twy, tyz + twx, 1.0 - (txx + tyy)),
+                      axis=-1)  # pyformat: disable
+    output_shape = tf.concat((tf.shape(input=quaternion)[:-1], (3, 3)), axis=-1)
+    return tf.reshape(matrix, shape=output_shape)

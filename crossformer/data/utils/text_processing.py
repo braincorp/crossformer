@@ -4,8 +4,6 @@ from typing import Optional, Sequence
 import numpy as np
 import tensorflow as tf
 
-MULTI_MODULE = "https://tfhub.dev/google/universal-sentence-encoder-multilingual/3"
-
 
 class TextProcessor(ABC):
     """
@@ -49,18 +47,6 @@ class HFTokenizer(TextProcessor):
             return dict(inputs)
 
 
-class MuseEmbedding(TextProcessor):
-    def __init__(self):
-        import tensorflow_hub as hub  # lazy import
-        # import tensorflow_text  # noqa: F401
-
-        self.muse_model = hub.load(MULTI_MODULE)
-
-    def encode(self, strings: Sequence[str]):
-        with tf.device("/cpu:0"):
-            return self.muse_model(strings).numpy()
-
-
 class CLIPTextProcessor(TextProcessor):
     def __init__(
         self,
@@ -90,7 +76,6 @@ class CLIPTextProcessor(TextProcessor):
 class UniversalSentenceEncoder(TextProcessor):
     def __init__(self):
         import tensorflow_hub as hub  # lazy import
-        # import tensorflow_text  # noqa: F401
 
         self.sentence_encoder = hub.load(
             "https://tfhub.dev/google/universal-sentence-encoder-large/5"

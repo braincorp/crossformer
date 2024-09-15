@@ -19,9 +19,7 @@ moviepy >= 1.0.3
 pre-commit == 3.3.3
 transformers >= 4.34.1
 tensorflow_hub >= 0.14.0
-# tensorflow_text >= 2.13.0 needed?
 tensorflow_datasets == 4.9.6
-# tensorflow_graphics == 2021.12.3 needed for some dataset transformations
 dlimp @ git+https://github.com/braincorp/dlimp@9083bbe960146d7f1a09494c0291f372130ba43c
 plotly >= 5.16.1
 matplotlib
