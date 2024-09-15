@@ -438,9 +438,6 @@ def quaternion_to_euler(
   Returns:
     A tensor of shape `[A1, ..., An, 3, 3]`, where the last two dimensions
     represent a 3d rotation matrix.
-
-  Raises:
-    ValueError: If the shape of `quaternion` is not supported.
   """
   with tf.name_scope(name):
     quaternion = tf.convert_to_tensor(value=quaternion)
