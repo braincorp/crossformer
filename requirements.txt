@@ -1,17 +1,17 @@
 gym >= 0.26
-numpy == 1.24.3
-ml_dtypes == 0.2.0
+numpy == 1.26.4
+ml_dtypes == 0.4.0
 chex == 0.1.85
 optax == 0.1.5
 tensorflow_probability == 0.23.0
-tensorflow == 2.15.0
-jax == 0.4.20
+tensorflow == 2.17.0
+jax == 0.4.31  # After install, run pip install --upgrade "jax[cuda12_pip]==0.4.31" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 distrax == 0.1.5
-flax == 0.7.5
-ml_collections >= 0.1.0
+flax == 0.9.0
+ml_collections @ git+https://github.com/google/ml_collections@2699256fe8eebbd25b7a78871309b54d5b831452
 tqdm >= 4.60.0
 absl-py >= 0.12.0
-scipy == 1.12.0
+scipy == 1.14.0
 wandb >= 0.12.14
 einops >= 0.6.1
 imageio >= 2.31.1
@@ -19,10 +19,8 @@ moviepy >= 1.0.3
 pre-commit == 3.3.3
 transformers >= 4.34.1
 tensorflow_hub >= 0.14.0
-tensorflow_text >= 2.13.0
-tensorflow_datasets == 4.9.2
-tensorflow_graphics == 2021.12.3
-dlimp @ git+https://github.com/kvablack/dlimp@5edaa4691567873d495633f2708982b42edf1972
+tensorflow_datasets == 4.9.6
+dlimp @ git+https://github.com/braincorp/dlimp@9083bbe960146d7f1a09494c0291f372130ba43c
 plotly >= 5.16.1
 matplotlib
 rail_tpu_utils

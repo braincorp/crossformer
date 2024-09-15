@@ -21,6 +21,7 @@ from crossformer.data.utils.data_utils import (
     invert_gripper_actions,
     rel2abs_gripper_actions,
     relabel_actions,
+    quaternion_to_euler,
 )
 
 METRIC_WAYPOINT_SPACING = {
@@ -441,13 +442,11 @@ def maniskill_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def furniture_bench_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
-    import tensorflow_graphics.geometry.transformation as tft
-
     # invert gripper action + clip, +1 = open, 0 = close
     trajectory["action"] = tf.concat(
         (
             trajectory["action"][:, :3],
-            tft.euler.from_quaternion(trajectory["action"][:, 3:7]),
+            quaternion_to_euler(trajectory["action"][:, 3:7]),
             invert_gripper_actions(
                 tf.clip_by_value(trajectory["action"][:, -1:], 0, 1)
             ),
@@ -752,12 +751,10 @@ def imperial_wristcam_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str,
 
 
 def iamlab_pick_insert_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
-    import tensorflow_graphics.geometry.transformation as tft
-
     trajectory["action"] = tf.concat(
         (
             trajectory["action"][:, :3],
-            tft.euler.from_quaternion(trajectory["action"][:, 3:7]),
+            quaternion_to_euler(trajectory["action"][:, 3:7]),
             trajectory["action"][:, 7:8],
         ),
         axis=-1,
@@ -828,12 +825,10 @@ def berkeley_fanuc_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, An
 def cmu_playing_with_food_dataset_transform(
     trajectory: Dict[str, Any]
 ) -> Dict[str, Any]:
-    import tensorflow_graphics.geometry.transformation as tft
-
     trajectory["action"] = tf.concat(
         (
             trajectory["action"][:, :3],
-            tft.euler.from_quaternion(trajectory["action"][:, 3:7]),
+            quaternion_to_euler(trajectory["action"][:, 3:7]),
             trajectory["action"][:, -1:],
         ),
         axis=-1,

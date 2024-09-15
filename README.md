@@ -36,12 +36,12 @@ pip install -r requirements.txt
 ```
 For GPU:
 ```bash
-pip install --upgrade "jax[cuda11_pip]==0.4.20" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install --upgrade "jax[cuda11_pip]==0.4.31" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 ```
 
 For TPU
 ```bash
-pip install --upgrade "jax[tpu]==0.4.20" -f https://storage.googleapis.com/jax-releases/libtpu_releases.html
+pip install --upgrade "jax[tpu]==0.4.31" -f https://storage.googleapis.com/jax-releases/libtpu_releases.html
 ```
 See the [Jax Github page](https://github.com/google/jax) for more details on installing Jax.
 
