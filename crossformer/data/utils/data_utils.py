@@ -1,15 +1,16 @@
-from enum import Enum
-from fnmatch import fnmatch
 import hashlib
 import json
 import logging
 import os
+from fnmatch import fnmatch
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import dlimp as dl
 import numpy as np
 import tensorflow as tf
 import tqdm
+
+from crossformer.data.utils.normalization_type import NormalizationType
 
 
 def fnmatch_filter(template, xs):
