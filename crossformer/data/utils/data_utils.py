@@ -1,9 +1,9 @@
+from enum import Enum
+from fnmatch import fnmatch
 import hashlib
 import json
 import logging
 import os
-from enum import Enum
-from fnmatch import fnmatch
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import dlimp as dl
