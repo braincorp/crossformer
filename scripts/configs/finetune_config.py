@@ -10,6 +10,14 @@ from crossformer.utils.spec import ModuleSpec
 
 
 def get_config():
+    brawn_artifacts_directory = os.path.expanduser("~/brawn_artifacts")
+    if not os.path.exists(brawn_artifacts_directory):
+        os.makedirs(brawn_artifacts_directory)
+
+    checkpoints_directory = os.path.expanduser("~/brawn_artifacts/checkpoints")
+    if not os.path.exists(checkpoints_directory):
+        os.makedirs(checkpoints_directory)
+
     # whether to finetune the entire model or just the action head
     mode = "full"
 
@@ -90,7 +98,7 @@ def get_config():
         log_interval=100,
         eval_interval=1000,
         save_interval=1000,
-        save_dir=placeholder(str),
+        save_dir=checkpoints_directory,
         seed=42,
         wandb=dict(
             project="crossformer-fine-tuning",
