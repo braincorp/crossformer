@@ -1,3 +1,5 @@
+import os
+
 from ml_collections import ConfigDict
 from ml_collections.config_dict import FieldReference, placeholder
 
@@ -22,8 +24,8 @@ def get_config():
 
     # fill this in to configure data loading for your dataset.
     FINETUNING_KWARGS = dict(
-        name="bridge_dataset",
-        data_dir="",
+        name="episodes_bridge_orig_rlds",
+        data_dir=os.path.expanduser("~/brawn_artifacts/datasets/widowx_250s/episodes_bridge_orig"),
         image_obs_keys={"primary": "image_0"},
         proprio_obs_keys={},
         language_key="language_instruction",
@@ -91,9 +93,9 @@ def get_config():
         save_dir=placeholder(str),
         seed=42,
         wandb=dict(
-            project="crossformer_finetune",
+            project="crossformer-fine-tuning",
             group=placeholder(str),
-            entity=placeholder(str),
+            entity="research-development",
         ),
         dataset_kwargs=FINETUNING_KWARGS,
         modality=task,
