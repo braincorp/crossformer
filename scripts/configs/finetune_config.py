@@ -77,14 +77,14 @@ def get_config():
     else:
         raise ValueError("Invalid mode")
 
-    max_steps = FieldReference(50000)
+    max_steps = FieldReference(100000)
     window_size = FieldReference(default=1)
 
     config = dict(
         # update_config=UPDATE_CONFIG, # uncomment this line to add new observation tokenizer and action head
         pretrained_path="hf://rail-berkeley/crossformer",
         pretrained_step=placeholder(int),
-        batch_size=256,
+        batch_size=128,
         shuffle_buffer_size=10000,
         num_steps=max_steps,
         log_interval=100,
@@ -114,7 +114,7 @@ def get_config():
             weight_decay=0.01,
             clip_gradient=1.0,
             frozen_keys=frozen_keys,
-            grad_accumulation_steps=None,  # if you are using grad accumulation, you need to adjust max_steps accordingly
+            grad_accumulation_steps=2,  # if you are using grad accumulation, you need to adjust max_steps accordingly
         ),
         val_kwargs=dict(
             val_shuffle_buffer_size=1000,
