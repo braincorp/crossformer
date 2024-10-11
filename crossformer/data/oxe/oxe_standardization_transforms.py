@@ -1062,6 +1062,18 @@ def droid_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
     return trajectory
 
 
+def brawn_dataset_transform(trajectory: Dict[str, any]) -> Dict[str, Any]:
+    trajectory["action"] = trajectory["action"]["action_vector"]
+    trajectory["observation"]["proprio"] = tf.concat(
+        (
+            trajectory["observation"]["joint_positions"],
+            trajectory["observation"]["gripper_position"][:, None],
+        ),
+        axis=-1,
+    )
+    return trajectory
+
+
 OXE_STANDARDIZATION_TRANSFORMS = {
     "bridge_dataset": bridge_dataset_transform,
     "fractal20220817_data": rt1_dataset_transform,
@@ -1135,4 +1147,5 @@ OXE_STANDARDIZATION_TRANSFORMS = {
     "droid": droid_dataset_transform,
     "droid_wipe": droid_dataset_transform,
     "droid_flip_pot_upright": droid_dataset_transform,
+    "episodes_pick_bottled_sugar_lab_first_60_openvla_rlds": brawn_dataset_transform,
 }

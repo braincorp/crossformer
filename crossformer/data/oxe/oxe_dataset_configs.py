@@ -913,4 +913,18 @@ OXE_DATASET_CONFIGS = {
         "proprio_encoding": ProprioEncoding.POS_EULER,
         "action_encoding": ActionEncoding.EEF_POS,
     },
+    "episodes_pick_bottled_sugar_lab_first_60_openvla_rlds": {
+        "image_obs_keys": {
+            "primary": "static_rgb_image",
+            "high": None,
+            "nav": None,
+            "left_wrist": None,
+            "right_wrist": None,
+        },
+        "depth_obs_keys": {"primary": None, "secondary": None, "wrist": None},
+        "proprio_obs_keys": {"bimanual": None, "quadruped": None},
+        "proprio_obs_dims": {"bimanual": 14, "quadruped": 46},
+        "proprio_encoding": ProprioEncoding.JOINT,
+        "action_encoding": ActionEncoding.EEF_POS,
+    },
 }
