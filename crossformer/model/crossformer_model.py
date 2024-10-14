@@ -7,7 +7,7 @@ import flax
 from flax import struct
 from flax.training import orbax_utils
 import jax
-from jax.experimental import multihost_utils
+from jax.experimental import multihost_utils, mesh_utils
 import jax.numpy as jnp
 from jax.typing import ArrayLike
 import numpy as np
@@ -318,12 +318,25 @@ class CrossFormerModel:
             partial(module.init, train=False), jax.random.PRNGKey(0), *init_args
         )["params"]
 
+        device = jax.devices()[0]
+        single_device_sharding = jax.sharding.SingleDeviceSharding(device)
+
+        def apply_sharding(x):
+            return jax.device_put(jnp.zeros(x.shape, x.dtype), single_device_sharding)
+
+        dummy_target = jax.tree_util.tree_map(apply_sharding, params_shape)
+        restore_args = orbax_utils.restore_args_from_target(dummy_target)
+
         # restore params, checking to make sure the shape matches
         checkpointer = orbax.checkpoint.CheckpointManager(
             checkpoint_path, orbax.checkpoint.PyTreeCheckpointer()
         )
         step = step if step is not None else checkpointer.latest_step()
-        params = checkpointer.restore(step, params_shape)
+        params = checkpointer.restore(
+            step,
+            params_shape,
+            restore_kwargs={"restore_args": restore_args},
+        )
 
         if config["text_processor"] is not None:
             text_processor = ModuleSpec.instantiate(config["text_processor"])()
